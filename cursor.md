@@ -1,149 +1,163 @@
-# Cursor Working Reference: RoofScope
+# Cursor Working Reference: PitchPoint
 
 ## Project Identity
 
-- Project: `RoofScope` (JobNimbus Roof Sizer for hackathon use)
-- Goal: turn a single aerial residential image into a roof measurement report and contractor-ready estimate
+- Project: `PitchPoint`
+- Tagline: `Address in. Roof measured. Quote ready.`
+- Goal: turn an address and accuracy-engine outputs into a roof measurement report and contractor-ready estimate
 - Audience: roofing contractors who need fast, explainable measurement output
 - Hackathon context: JobNimbus track
 
-## Problem Statement
+## Product Story
 
-Commercial roof measurement reports (EagleView, Geospan) can cost about `$30-$150` per property. This project automates that workflow:
+Commercial roof measurement reports can cost contractors time and money before they can quote a job. PitchPoint wraps the accuracy engine in a polished product flow:
 
-1. User uploads an aerial photo
-2. User clicks the roof as a segmentation prompt
-3. System returns roof geometry, square footage, and estimate line items in seconds
+1. User enters or selects an address.
+2. Backend/pipeline creates measurement artifacts.
+3. UI shows satellite imagery, selected structure, predicted roof sqft, confidence, warnings, and estimate line items.
+4. Customer-ready report becomes available.
 
-## End-to-End Pipeline
+## Product Shell Boundary
 
-1. Upload aerial property image
-2. Capture user prompt click on roof
-3. Run SAM 2 prompted segmentation
-4. Extract roof polygon and pixel geometry with OpenCV
-5. Convert pixels to feet using GSD calibration
-6. Apply pitch multiplier to convert footprint area to true roof area
-7. Derive roofing line items from polygon edge geometry
-8. Produce structured estimate with quantity + price ranges
+Accuracy work is owned separately. Product/frontend code should consume outputs, not recalculate core measurements.
 
-## Most Important Technical Constraint
+Read these artifacts when available:
+
+- `prediction.json`
+- `satellite.png`
+- `footprints.geojson`
+- `selected.geojson`
+- `top_candidates.geojson`
+- `leaderboard.csv`
+- `scenario_summary.csv`
+- `dataset_summary.csv`
+- `summary.md`
+- `pattern_analysis.md`
+- `recommended_scenario.md`
+- `submission.json`
+
+If a file is missing, fail gracefully with a friendly message.
+
+## Core Accuracy Rules
+
+Do not change pitch logic, building selection logic, scenario ranking, scoring logic, benchmark calculations, or address-specific behavior from product/UI work.
+
+Do not modify these accuracy files unless explicitly asked:
+
+- `src/pipeline.py`
+- `src/scenarios.py`
+- `src/evaluate.py`
+- `src/diagnose.py`
+- `src/select_building.py`
+- `src/pitch.py`
+- `src/geometry_utils.py`
+
+## Measurement Constraint
 
 Roof footprint area is not the same as roof surface area.
 
-- Formula:
-  - `roof_area = footprint_area * pitch_multiplier`
-  - `pitch_multiplier = sqrt(1 + (rise / run)^2)`
+- `roof_area = footprint_area * pitch_multiplier`
+- `pitch_multiplier = sqrt(1 + (rise / run)^2)`
 - Default pitch is `6:12`, so multiplier is approximately `1.118`
-- This conversion is a critical correctness requirement and a common failure mode
 
-## Evaluation Criteria
+Always show measurement math for explainability, but do not fabricate measurements or accuracy numbers.
 
-- Compare total roof sqft output against commercial references (EagleView/Geospan)
-- Practical tolerance target: within about `5-10%`
-- Output must be contractor-usable (line items + estimate), not just raw area
-- Judging dimensions: accuracy, product usefulness, UX, code craft, demo quality
-
-## Tech Stack
+## Current Tech Stack
 
 - Backend: Python `3.11`, FastAPI, router/controller/service architecture
-- Segmentation: SAM 2 (`sam2` package, `SAM2ImagePredictor`)
-- Geometry: OpenCV (`findContours`, `arcLength`, `contourArea`) + Shapely
-- Frontend: React preferred (clean HTML fallback acceptable)
+- Accuracy engine: owned separately; consume its artifacts
+- Frontend: React + Vite product demo
+- Styling: plain CSS, no component library
 - No database
 - No authentication
 
-## Target Structure
+## Current Frontend Structure
 
 ```text
-/backend
-  /routers
-  /controllers
-  /services       # sam.py, geometry.py, gsd.py, estimate.py
-  main.py
-  requirements.txt
-/frontend
+/src
+  App.jsx
+  Navbar.jsx
+  InputPanel.jsx
+  ResultsPanel.jsx
+  ImagePreview.jsx
+  MetricCard.jsx
+  LineItems.jsx
+  EstimateBar.jsx
+  Toast.jsx
+  index.css
 ```
 
-## Core Logic Responsibilities
+## Product Responsibilities
 
-- `sam.py`: load SAM 2 once at startup, run prompted segmentation, return binary mask
-- `geometry.py`: convert mask to polygon, pixel area, and classified edges
-- `gsd.py`: convert pixel geometry to feet via EXIF or user-drawn reference object
-- `estimate.py`: pitch-adjust area, compute squares, line items, materials, and cost range
+- Display address analysis result
+- Show satellite image and overlay when available
+- Show roof sqft, squares, pitch, confidence, warnings, and manual review status
+- Show estimate preview
+- Link to or render customer report
+- Show accuracy lab artifacts when available
+- Show submission outputs when available
 
 ## Hard Implementation Rules
 
-- SAM 2 must run in prompted mode only (point or box), never automatic mode
-- Load SAM 2 once on startup (do not load per request)
-- Default pitch is `6:12` (multiplier `1.118`) unless user overrides
-- GSD fallback is required when EXIF is missing:
-  - user draws reference line over known object (car ~15 ft, lane ~12 ft)
-- Always show measurement math for explainability
-- Never fabricate measurements
+- Do not modify core accuracy files unless explicitly asked.
+- Do not fabricate measurements or accuracy numbers.
+- Do not hardcode address-specific fixes.
+- Do not claim PDF export exists if only HTML exists.
+- Do not block the demo on perfect overlays; use graceful placeholders.
+- Keep customer-facing copy contractor-friendly and trustworthy.
 
 ## Roofing Line Items
 
-- Eaves: bottom horizontal perimeter edges (fascia interface)
+- Eaves: bottom horizontal perimeter edges
 - Rakes: sloped perimeter edges at gable ends
 - Ridge: top horizontal peak lines
 - Hips: diagonal peak intersections
 - Valleys: interior concave facet intersections
 - Squares: `total_roof_sqft / 100`
 
-## Estimate JSON Contract
+## Frontend Result Contract
 
 ```json
 {
-  "roof_sqft": 2443,
-  "squares": 24.43,
+  "sqft": 2443,
+  "footprintSqft": 2120,
+  "squares": 24.4,
+  "squaresWithWaste": 28.1,
   "pitch": "6:12",
-  "pitch_multiplier": 1.118,
-  "line_items": {
-    "eaves_ft": 187,
-    "rakes_ft": 101,
-    "ridge_ft": 26,
-    "hip_ft": 101,
-    "valleys_ft": 40
+  "pitchMultiplier": 1.118,
+  "pixelArea": 1847,
+  "gsd": 0.0024,
+  "confidence": 0.91,
+  "manualReviewNeeded": false,
+  "warnings": [],
+  "satelliteImageUrl": "/outputs/.../satellite.png",
+  "overlayImageUrl": "/outputs/.../overlay_selected.png",
+  "reportUrl": "/outputs/.../report.html",
+  "lineItems": {
+    "eaves": 187,
+    "rakes": 101,
+    "ridge": 26,
+    "hips": 101,
+    "valleys": 40
   },
-  "materials": {
-    "shingles_squares": 28.1,
-    "drip_edge_ft": 288,
-    "ridge_cap_ft": 127
-  },
-  "estimate": {
-    "materials_low": 4200,
-    "materials_high": 6800,
-    "labor_low": 2400,
-    "labor_high": 4800,
-    "total_low": 6600,
-    "total_high": 11600
-  },
-  "confidence": "high",
-  "gsd_source": "exif"
+  "estimateLow": 8200,
+  "estimateHigh": 13400
 }
 ```
 
-## Validation Target
+## Demo Story
 
-- Property: `21106 Kenswick Meadows Ct, Humble TX`
-- Reference roof area: around `2,443 sqft` at `6:12` pitch
-- Use as a pre-submission sanity check
-
-## Suggested Build Order (20-Hour Budget)
-
-1. FastAPI skeleton + `/upload`
-2. SAM 2 integration (image -> mask)
-3. OpenCV polygon extraction (mask -> geometry)
-4. GSD calibration (pixel -> feet)
-5. Pitch multiplier + roof sqft computation
-6. Line item + estimate generation
-7. Explainability overlay (edge labels + visible math)
-8. Frontend flow (upload, click prompt, annotated result, estimate card)
+1. Contractors need fast roof estimates from an address.
+2. PitchPoint starts with an address.
+3. It shows satellite/property context and selected roof evidence.
+4. It presents predicted roof sqft, pitch, confidence, warnings, and estimate range.
+5. The Accuracy Lab proves scenarios were benchmarked and measured.
+6. Final outputs are organized for submission and customer review.
 
 ## Prompting Convention
 
 For future implementation prompts, start with:
 
-- `Reference: @cursor.md`
-
-This keeps project constraints and assumptions visible in every step.
+```text
+Reference: @cursor.md
+```

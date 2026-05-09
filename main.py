@@ -10,5 +10,5 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="JobNimbus Roof Sizer", lifespan=lifespan)
+app = FastAPI(title="PitchPoint", lifespan=lifespan)
 app.include_router(upload_router)
