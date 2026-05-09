@@ -1,8 +1,8 @@
-import EstimateBar from './EstimateBar.jsx';
 import FirstPassPanel from './FirstPassPanel.jsx';
 import ImagePreview from './ImagePreview.jsx';
 import LineItems from './LineItems.jsx';
 import MetricCard from './MetricCard.jsx';
+import Quotation from './Quotation.jsx';
 import SynthesizerPanel from './SynthesizerPanel.jsx';
 
 export default function ResultsPanel({ results, loading }) {
@@ -50,7 +50,7 @@ export default function ResultsPanel({ results, loading }) {
           <FirstPassPanel firstPass={results.firstPass} slug={results.slug} />
 
           {results.lineItems ? <LineItems lineItems={results.lineItems} /> : null}
-          <EstimateBar results={results} />
+          <Quotation results={results} />
         </div>
       ) : null}
     </section>
