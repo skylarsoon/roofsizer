@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# HuggingFace model cache (if ever redirected into the project)
+.cache/
+
+# Generated sample outputs — test images and scripts are kept, outputs are not
+sample/response.json
+sample/overlay.png
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
