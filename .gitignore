@@ -30,3 +30,22 @@ sample/overlay.png
 .idea/
 .vscode/
 *.swp
+
+# Backend caches — keep only the pre-warmed s_synthesizer artifacts for the demo
+server/cache/imagery/
+server/cache/footprints/
+server/cache/geocode/
+server/cache/gemini_pitch_multi/
+server/cache/llm_pitch_multi/
+server/cache/llm_regional/
+server/cache/osm/
+server/cache/solar_building_data/
+server/cache/streetview/
+server/cache/streetview_images/
+server/cache/streetview_pitch/
+server/cache/synthesizer/
+server/outputs/
+
+# Python build artifacts
+*.egg-info/
+.pytest_cache/

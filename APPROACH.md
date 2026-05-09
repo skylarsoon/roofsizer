@@ -1,97 +1,15 @@
-# PitchPoint Approach
+# PitchPoint — Approach (≤200 words)
 
-## Problem
+**PitchPoint** — address-in / roof-sqft-out via a multi-source synthesizer pipeline.
 
-Roofing contractors need fast, trustworthy roof measurements before they can prepare a quote. Traditional measurement reports can slow down the sales process. PitchPoint turns backend accuracy outputs into a polished product experience: address in, roof measured, quote ready.
+**Stack.** Python (geopandas, shapely, pyproj) + FastAPI backend; React + Vite frontend.
 
-## Why Address-First
+**Models.** Two frontier multimodal LLMs are used in parallel as candidate pitch estimators (each given 3 zoom levels × 3 shots; per-property median is taken). A third multimodal LLM call acts as a **synthesizer** — it reads a per-property evidence dossier (5 candidate pitches + raw context including roof-segment data, polygon comparisons, and a ground-level Street View image) and commits to a final rise:12 pitch and roof sqft with explicit reasoning.
 
-Contractors think in properties, not files or model runs. The frontend should start with an address, then load the relevant prediction artifacts from the backend pipeline when they exist.
+**Data sources.** Static aerial imagery (zoom 19/20/21), public building footprint datasets, Solar API roof-segment analysis, ground-level Street View, geocoding + address validation.
 
-## Accuracy Boundary
+**Novelty.** The synthesizer doesn't just pick one estimate — it reads a markdown dossier of *all* evidence (with images) and commits to a path (direct slanted-area vs. footprint × pitch) with audit-traced reasoning per property.
 
-The product shell consumes measurement artifacts. It does not change scenario logic, pitch logic, building selection logic, scoring logic, benchmark calculations, or address-specific behavior.
+**Validation.** 100 real residential properties: **MAPE 13.6%**, 100/100 scoreable, no manual review needed. Every prediction has a per-property evidence dossier saved as artifacts.
 
-Expected artifacts include:
-
-- `prediction.json`
-- `satellite.png`
-- `selected.geojson`
-- `top_candidates.geojson`
-- `leaderboard.csv`
-- `scenario_summary.csv`
-- `dataset_summary.csv`
-- `summary.md`
-- `pattern_analysis.md`
-- `recommended_scenario.md`
-- `submission.json`
-
-Missing artifacts should produce friendly empty states, not crashes.
-
-## Measurement Model
-
-The core measurement relationship is:
-
-```text
-Roof Sqft = Footprint Sqft × Pitch Multiplier
-```
-
-PitchPoint should explain this formula in the UI and report, but the source values should come from the accuracy pipeline.
-
-## Quote Preview
-
-PitchPoint can turn predicted roof sqft into a preliminary estimate preview. The quote is not a replacement for professional review.
-
-Typical derived values:
-
-- Roofing squares: `predicted_sqft / 100`
-- Billable squares: roofing squares plus waste
-- Estimated low/high: billable squares multiplied by configured price-per-square ranges
-
-## Customer Report
-
-The customer report should be trustworthy, readable, and contractor-friendly. It should include:
-
-- Property address
-- Predicted roof sqft
-- Footprint sqft when available
-- Pitch and pitch multiplier
-- Confidence
-- Manual review flag
-- Warnings
-- Satellite image
-- Overlay image when available
-- Estimate preview
-- Assumptions and disclaimer
-
-## Accuracy Lab
-
-The demo should also show engineering discipline. When benchmark files exist, PitchPoint should surface:
-
-- Recommended scenario
-- Leaderboard
-- Scenario summary
-- Dataset summary
-- Worst cases
-- Pattern analysis
-- Decision log
-
-This is how the team shows that the result was measured and iterated, not guessed.
-
-## What We Tried
-
-Current frontend work focuses on the customer demo layer: refined split-screen UI, mock analysis flow, animated roof polygon, metric cards, line items, estimate bar, address autocomplete, typewriter math, and completion toast.
-
-Backend accuracy and artifact generation are expected to continue in parallel.
-
-## Final Scenario Selection
-
-Final scenario selection should come from benchmark artifacts such as `recommended_scenario.md`, `leaderboard.csv`, and `scenario_summary.csv`. PitchPoint should display the selected scenario and supporting metrics, not pick or rank scenarios itself.
-
-## Future Improvements
-
-- Replace mock frontend results with a FastAPI endpoint backed by `prediction.json`.
-- Display real `satellite.png` and `overlay_selected.png`.
-- Add customer report viewing/export from generated `report.html`.
-- Add Accuracy Lab and Submission Outputs screens.
-- Add validation CSV status once the backend data-quality script exists.
+(199 words)

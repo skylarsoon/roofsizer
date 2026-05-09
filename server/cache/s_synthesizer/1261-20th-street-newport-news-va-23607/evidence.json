@@ -1,0 +1,86 @@
+{
+  "address": "1261 20th Street, Newport News, VA 23607",
+  "geocode": {
+    "lat": 36.9845554,
+    "lng": -76.4016532
+  },
+  "candidates": {
+    "regional": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.65,
+      "source": "regional_default",
+      "label": "6:12 (regional/temperate_typical)",
+      "reasoning": null
+    },
+    "streetview": {
+      "rise": 4.0,
+      "run": 12.0,
+      "multiplier": 1.0540925533894598,
+      "confidence": 0.75,
+      "source": "streetview",
+      "label": "4:12 (streetview)",
+      "reasoning": "The main roof is clearly visible side-on with a shallow gable slope, around 18 degrees from horizontal."
+    },
+    "gpt_multi": {
+      "rise": 4.0,
+      "run": 12.0,
+      "multiplier": 1.0540925533894598,
+      "confidence": 0.7033333333333333,
+      "source": "llm_multi",
+      "label": "4:12 (median of 3 shots)",
+      "reasoning": "The complex hipped roof massing, minimal ridge shadow, and wide visible roof planes point to a shallow roughly 4:12 pitch.; The complex low hip/gable roof has wide visible planes and limited ridge shadow, supporting an estimated shallow 4:12 pitch."
+    },
+    "gemini_multi": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.5,
+      "source": "gemini_rejected_fallback",
+      "label": "6:12",
+      "reasoning": "all 3 Gemini shots failed"
+    }
+  },
+  "raw_context": {
+    "solar": {
+      "available": true,
+      "whole_roof_area_sqft": 6117.8,
+      "ground_area_sqft": 5814.1,
+      "weighted_pitch_deg": 18.08,
+      "weighted_pitch_multiplier": 1.0519,
+      "max_pitch_deg": 19.65,
+      "min_pitch_deg": 16.43,
+      "roof_segment_count": 6,
+      "roof_center_lat": 36.984586199999995,
+      "roof_center_lng": -76.401686,
+      "imagery_quality": "HIGH",
+      "error": null,
+      "roof_segment_centers": []
+    },
+    "streetview": {
+      "address": "1261 20th Street, Newport News, VA 23607",
+      "lat": 36.9845554,
+      "lng": -76.4016532,
+      "streetview_available": true,
+      "pano_id": "UT-vcyQVyDOygjQE8SgoyQ",
+      "pano_lat": 36.98437144242003,
+      "pano_lng": -76.4015843600198,
+      "distance_to_pano_m": 21.37,
+      "pano_date": "2023-07",
+      "copyright": "\u00a9 Google",
+      "status": "OK",
+      "error": null
+    },
+    "ms": {
+      "count": 99,
+      "closest_area_sqft": 5934.1,
+      "closest_distance_m": 0.0
+    },
+    "osm": {
+      "count": 148,
+      "closest_area_sqft": 5861.2,
+      "closest_distance_m": 0.0
+    }
+  }
+}

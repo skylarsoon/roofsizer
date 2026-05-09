@@ -1,0 +1,63 @@
+{
+  "run_id": "manual",
+  "record_id": "manual",
+  "address": "1612 S Canton Ave, Springfield, MO 65802",
+  "dataset": "manual",
+  "scenario_id": "s_synthesizer",
+  "lat": 37.1860933,
+  "lng": -93.36959139999999,
+  "footprint_source": "synthesizer:solar_whole",
+  "selected_polygon_source": "solar_whole",
+  "selected_polygon_area_sqft": 2756.8,
+  "footprint_sqft": 2756.8,
+  "polygon_count": 31,
+  "closest_polygon_distance_m": 0.0,
+  "pitch_used": "7:12 (A_solar_direct; pitch=solar_pitch, fp=solar_whole)",
+  "pitch_multiplier": 1.1577,
+  "pitch_source": "synthesizer/solar_pitch+solar_whole",
+  "pitch_confidence": 0.9,
+  "predicted_sqft": 2756.8,
+  "confidence": 1.0,
+  "warnings": [
+    "pitch_reasoning: Solar wholeRoofStats is available, has HIGH imagery quality, and includes 10 roof segments, so Path A is preferred and the 2756.8 sqft value is already the slanted roof area. The pitch evidence varies between roughly 5:12 and solar-weighted about 7:12, but no separate pitch multiplier is needed for the final area. | candidates: regional=6:12@0.65, streetview=5:12@0.75, gpt_multi=5:12@0.66, gemini_multi=6:12@0.50"
+  ],
+  "manual_review_needed": false,
+  "building_selection_reason": "closest polygon to geocoded point",
+  "failure_reason": null,
+  "artifacts": {
+    "satellite_path": "server/cache/s_synthesizer/1612-s-canton-ave-springfield-mo-65802/satellite.png",
+    "footprints_geojson": "server/cache/s_synthesizer/1612-s-canton-ave-springfield-mo-65802/footprints.geojson",
+    "selected_geojson": "server/cache/s_synthesizer/1612-s-canton-ave-springfield-mo-65802/selected.geojson",
+    "top_candidates_geojson": "server/cache/s_synthesizer/1612-s-canton-ave-springfield-mo-65802/top_candidates.geojson"
+  },
+  "candidates": [
+    {
+      "index": 9,
+      "area_sqft": 2290.5,
+      "distance_m": 0.0
+    },
+    {
+      "index": 30,
+      "area_sqft": 3335.6,
+      "distance_m": 13.15
+    },
+    {
+      "index": 2,
+      "area_sqft": 2361.3,
+      "distance_m": 14.21
+    },
+    {
+      "index": 26,
+      "area_sqft": 2452.3,
+      "distance_m": 34.43
+    },
+    {
+      "index": 1,
+      "area_sqft": 2304.3,
+      "distance_m": 39.79
+    }
+  ],
+  "image_provider": "google_static_maps",
+  "zoom": 20,
+  "scale": 2
+}

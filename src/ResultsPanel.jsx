@@ -1,7 +1,9 @@
 import EstimateBar from './EstimateBar.jsx';
+import FirstPassPanel from './FirstPassPanel.jsx';
 import ImagePreview from './ImagePreview.jsx';
 import LineItems from './LineItems.jsx';
 import MetricCard from './MetricCard.jsx';
+import SynthesizerPanel from './SynthesizerPanel.jsx';
 
 export default function ResultsPanel({ results, loading }) {
   return (
@@ -15,24 +17,39 @@ export default function ResultsPanel({ results, loading }) {
               value={results.sqft}
               format="number"
               label="Total sqft"
-              sub="Roof area"
+              sub="PitchPoint roof area"
             />
             <MetricCard
               value={results.squares}
               format="decimal"
               label="Squares"
-              sub={`+15% waste = ${results.squaresWithWaste.toFixed(1)}`}
+              sub={
+                results.squaresWithWaste != null
+                  ? `+15% waste = ${results.squaresWithWaste.toFixed(1)}`
+                  : null
+              }
             />
             <MetricCard
               value={results.pitch}
               format="number"
               label="Pitch"
-              sub={`×${results.pitchMultiplier.toFixed(3)} multiplier`}
+              sub={
+                results.pitchMultiplier != null
+                  ? `×${results.pitchMultiplier.toFixed(3)} multiplier`
+                  : null
+              }
               accent
             />
           </div>
 
-          <LineItems lineItems={results.lineItems} />
+          <SynthesizerPanel
+            synthesizer={results.synthesizer}
+            manualReviewNeeded={results.manualReviewNeeded}
+          />
+
+          <FirstPassPanel firstPass={results.firstPass} slug={results.slug} />
+
+          {results.lineItems ? <LineItems lineItems={results.lineItems} /> : null}
           <EstimateBar results={results} />
         </div>
       ) : null}

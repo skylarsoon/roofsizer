@@ -1,0 +1,31 @@
+# PitchPoint backend — synthesizer pipeline + FastAPI bridge.
+# Excludes SAM2/torch/torchvision intentionally (synthesizer scenario doesn't use SAM).
+
+# Core scientific
+numpy>=2.0
+pandas>=2.0
+shapely>=2.0
+pyproj>=3.6
+geopandas>=1.0
+fiona>=1.10
+geopy>=2.4
+
+# Imagery / geospatial I/O
+Pillow>=10.0
+opencv-python-headless>=4.10
+pystac-client>=0.7
+adlfs>=2024.0
+# pyarrow needed for reading Microsoft Building Footprints parquet (one of the
+# evidence sources in the synthesizer dossier). NOT for SAM/torch.
+pyarrow>=15.0
+
+# Models / API clients
+openai>=1.30
+requests>=2.32
+python-dotenv>=1.0
+certifi>=2024.0
+
+# FastAPI bridge
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.5

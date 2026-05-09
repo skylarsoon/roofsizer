@@ -1,0 +1,15 @@
+{
+  "path": "A_solar_direct",
+  "footprint_source": "solar_whole",
+  "footprint_sqft": 2756.8,
+  "pitch_source": "solar_pitch",
+  "rise": 7.0,
+  "run": 12,
+  "pitch_multiplier": 1.1653,
+  "final_predicted_sqft": 2756.8,
+  "confidence": 0.9,
+  "manual_review_needed": false,
+  "reasoning": "Solar wholeRoofStats is available, has HIGH imagery quality, and includes 10 roof segments, so Path A is preferred and the 2756.8 sqft value is already the slanted roof area. The pitch evidence varies between roughly 5:12 and solar-weighted about 7:12, but no separate pitch multiplier is needed for the final area.",
+  "synthesizer_provider": "openai/gpt-5.5",
+  "raw": "{\"path\":\"A_solar_direct\",\"footprint_source\":\"solar_whole\",\"footprint_sqft\":2756.8,\"pitch_source\":\"solar_pitch\",\"rise\":7,\"run\":12,\"pitch_multiplier\":1.1653,\"final_predicted_sqft\":2756.8,\"confidence\":0.9,\"manual_review_needed\":false,\"reasoning\":\"Solar wholeRoofStats is available, has HIGH imagery quality, and includes 10 roof segments, so Path A is preferred and the 2756.8 sqft value is already the slanted roof area. The pitch evidence varies between roughly 5:12 and solar-weighted about 7:12, but no separate pitch multiplier is needed for the final area.\"}"
+}

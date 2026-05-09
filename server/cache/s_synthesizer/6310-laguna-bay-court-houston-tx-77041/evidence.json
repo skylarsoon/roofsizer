@@ -1,0 +1,86 @@
+{
+  "address": "6310 Laguna Bay Court, Houston, TX 77041",
+  "geocode": {
+    "lat": 29.8603157,
+    "lng": -95.59039589999999
+  },
+  "candidates": {
+    "regional": {
+      "rise": 5.0,
+      "run": 12.0,
+      "multiplier": 1.0833333333333333,
+      "confidence": 0.65,
+      "source": "regional_default",
+      "label": "5:12 (regional/tx_split)",
+      "reasoning": null
+    },
+    "streetview": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.05,
+      "source": "streetview_rejected",
+      "label": "6:12",
+      "reasoning": "No Street View imagery is available, so the roof cannot be assessed."
+    },
+    "gpt_multi": {
+      "rise": 7.0,
+      "run": 12.0,
+      "multiplier": 1.1577036657874837,
+      "confidence": 0.6247396856765398,
+      "source": "llm_multi",
+      "label": "7:12 (median of 3 shots)",
+      "reasoning": "The complex hip-and-gable roof shows typical-to-slightly-steep pitch cues with moderate shadows and moderate slope widths.; A complex hip-and-gable roof with moderate shadows and average slope widths suggests a typical residential pitch."
+    },
+    "gemini_multi": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.5,
+      "source": "gemini_rejected_fallback",
+      "label": "6:12",
+      "reasoning": "all 3 Gemini shots failed"
+    }
+  },
+  "raw_context": {
+    "solar": {
+      "available": true,
+      "whole_roof_area_sqft": 4186.2,
+      "ground_area_sqft": 3417.2,
+      "weighted_pitch_deg": 35.21,
+      "weighted_pitch_multiplier": 1.224,
+      "max_pitch_deg": 41.49,
+      "min_pitch_deg": 29.63,
+      "roof_segment_count": 20,
+      "roof_center_lat": 29.8603084,
+      "roof_center_lng": -95.5903731,
+      "imagery_quality": "HIGH",
+      "error": null,
+      "roof_segment_centers": []
+    },
+    "streetview": {
+      "address": "6310 Laguna Bay Court, Houston, TX 77041",
+      "lat": 29.8603157,
+      "lng": -95.59039589999999,
+      "streetview_available": false,
+      "pano_id": null,
+      "pano_lat": null,
+      "pano_lng": null,
+      "distance_to_pano_m": null,
+      "pano_date": null,
+      "copyright": null,
+      "status": "ZERO_RESULTS",
+      "error": "no_streetview_coverage"
+    },
+    "ms": {
+      "count": 62,
+      "closest_area_sqft": 3679.0,
+      "closest_distance_m": 0.0
+    },
+    "osm": {
+      "count": 70,
+      "closest_area_sqft": 2418.5,
+      "closest_distance_m": 0.0
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "selected",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "scenario": "s_synthesizer", "area_sqft": 1688.4, "distance_m": 0.0, "reason": "closest polygon to geocoded point", "source": "microsoft" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -104.945301021808604, 39.881213962715563 ], [ -104.945445825663896, 39.881215704781482 ], [ -104.945448546066302, 39.881081950398389 ], [ -104.945360054821407, 39.881080885800493 ], [ -104.945359027756695, 39.881131383655969 ], [ -104.945302715084907, 39.881130709208747 ], [ -104.945301021808604, 39.881213962715563 ] ] ] } }
+]
+}

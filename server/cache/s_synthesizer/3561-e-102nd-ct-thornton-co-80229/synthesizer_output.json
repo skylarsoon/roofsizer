@@ -1,0 +1,15 @@
+{
+  "path": "A_solar_direct",
+  "footprint_source": "solar_whole",
+  "footprint_sqft": 2080.8,
+  "pitch_source": "solar_pitch",
+  "rise": 9.0,
+  "run": 12,
+  "pitch_multiplier": 1.2362,
+  "final_predicted_sqft": 2080.8,
+  "confidence": 0.88,
+  "manual_review_needed": false,
+  "reasoning": "Solar wholeRoofStats provides a direct slanted roof area of 2080.8 sqft with HIGH imagery quality and 9 roof segments, so Path A is the appropriate choice and no footprint-by-pitch multiplication is needed. The solar weighted pitch is about 36 degrees, roughly 9:12, and is consistent with the moderately steep roof geometry visible in the imagery.",
+  "synthesizer_provider": "openai/gpt-5.5",
+  "raw": "{\"path\":\"A_solar_direct\",\"footprint_source\":\"solar_whole\",\"footprint_sqft\":2080.8,\"pitch_source\":\"solar_pitch\",\"rise\":9,\"run\":12,\"pitch_multiplier\":1.2362,\"final_predicted_sqft\":2080.8,\"confidence\":0.88,\"manual_review_needed\":false,\"reasoning\":\"Solar wholeRoofStats provides a direct slanted roof area of 2080.8 sqft with HIGH imagery quality and 9 roof segments, so Path A is the appropriate choice and no footprint-by-pitch multiplication is needed. The solar weighted pitch is about 36 degrees, roughly 9:12, and is consistent with the moderately steep roof geometry visible in the imagery.\"}"
+}

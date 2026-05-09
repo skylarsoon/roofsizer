@@ -1,0 +1,63 @@
+{
+  "run_id": "s_synthesizer",
+  "record_id": "live",
+  "address": "6310 Laguna Bay Court, Houston, TX 77041",
+  "dataset": "live",
+  "scenario_id": "s_synthesizer",
+  "lat": 29.8603157,
+  "lng": -95.59039589999999,
+  "footprint_source": "synthesizer:solar_whole",
+  "selected_polygon_source": "solar_whole",
+  "selected_polygon_area_sqft": 4186.2,
+  "footprint_sqft": 4186.2,
+  "polygon_count": 62,
+  "closest_polygon_distance_m": 0.0,
+  "pitch_used": "8:12 (A_solar_direct; pitch=solar_pitch, fp=solar_whole)",
+  "pitch_multiplier": 1.2019,
+  "pitch_source": "synthesizer/solar_pitch+solar_whole",
+  "pitch_confidence": 0.9,
+  "predicted_sqft": 4186.2,
+  "confidence": 1.0,
+  "warnings": [
+    "pitch_reasoning: Used Solar wholeRoofStats directly because it is available, has HIGH imagery quality, and includes 20 roof segments, meeting the preferred Path A criteria. The 4186.2 sqft value is already the slanted true roof area, so no footprint-to-pitch multiplication is needed. | candidates: regional=5:12@0.65, streetview=6:12@0.05, gpt_multi=7:12@0.62, gemini_multi=6:12@0.50"
+  ],
+  "manual_review_needed": false,
+  "building_selection_reason": "closest polygon to geocoded point",
+  "failure_reason": null,
+  "artifacts": {
+    "satellite_path": "/Users/atalarijani/Desktop/pitchpoint/server/cache/s_synthesizer/6310-laguna-bay-court-houston-tx-77041/satellite.png",
+    "footprints_geojson": "/Users/atalarijani/Desktop/pitchpoint/server/cache/s_synthesizer/6310-laguna-bay-court-houston-tx-77041/footprints.geojson",
+    "selected_geojson": "/Users/atalarijani/Desktop/pitchpoint/server/cache/s_synthesizer/6310-laguna-bay-court-houston-tx-77041/selected.geojson",
+    "top_candidates_geojson": "/Users/atalarijani/Desktop/pitchpoint/server/cache/s_synthesizer/6310-laguna-bay-court-houston-tx-77041/top_candidates.geojson"
+  },
+  "candidates": [
+    {
+      "index": 29,
+      "area_sqft": 3679.0,
+      "distance_m": 0.0
+    },
+    {
+      "index": 0,
+      "area_sqft": 4850.6,
+      "distance_m": 12.7
+    },
+    {
+      "index": 27,
+      "area_sqft": 2538.2,
+      "distance_m": 14.56
+    },
+    {
+      "index": 39,
+      "area_sqft": 696.0,
+      "distance_m": 17.0
+    },
+    {
+      "index": 3,
+      "area_sqft": 4613.5,
+      "distance_m": 32.13
+    }
+  ],
+  "image_provider": "google_static_maps",
+  "zoom": 20,
+  "scale": 2
+}

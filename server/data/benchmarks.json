@@ -1,0 +1,73 @@
+{
+  "datasets": {
+    "official_calibration_5": [
+      {
+        "id": "official_001",
+        "address": "21106 Kenswick Meadows Ct, Humble, TX 77338",
+        "ref_a_sqft": 2443,
+        "ref_b_sqft": 2343,
+        "known_pitch": "6:12",
+        "dataset": "official_calibration_5"
+      },
+      {
+        "id": "official_002",
+        "address": "5914 Copper Lilly Lane, Spring, TX 77389",
+        "ref_a_sqft": 4391,
+        "ref_b_sqft": 4296,
+        "known_pitch": "8:12",
+        "dataset": "official_calibration_5"
+      },
+      {
+        "id": "official_003",
+        "address": "122 NW 13th Ave, Cape Coral, FL 33993",
+        "ref_a_sqft": 2917,
+        "ref_b_sqft": 2851,
+        "known_pitch": "6:12",
+        "dataset": "official_calibration_5"
+      },
+      {
+        "id": "official_004",
+        "address": "14132 Trenton Ave, Orland Park, IL 60462",
+        "ref_a_sqft": 2990,
+        "ref_b_sqft": 2935,
+        "known_pitch": "4:12",
+        "dataset": "official_calibration_5"
+      },
+      {
+        "id": "official_005",
+        "address": "835 S Cobble Creek, Nixa, MO 65714",
+        "ref_a_sqft": 3070,
+        "ref_b_sqft": 3017,
+        "known_pitch": "8:12",
+        "dataset": "official_calibration_5"
+      }
+    ],
+    "official_test_5": [
+      {
+        "id": "test_001",
+        "address": "3561 E 102nd Ct, Thornton, CO 80229",
+        "dataset": "official_test_5"
+      },
+      {
+        "id": "test_002",
+        "address": "1612 S Canton Ave, Springfield, MO 65802",
+        "dataset": "official_test_5"
+      },
+      {
+        "id": "test_003",
+        "address": "6310 Laguna Bay Court, Houston, TX 77041",
+        "dataset": "official_test_5"
+      },
+      {
+        "id": "test_004",
+        "address": "3820 E Rosebrier St, Springfield, MO 65809",
+        "dataset": "official_test_5"
+      },
+      {
+        "id": "test_005",
+        "address": "1261 20th Street, Newport News, VA 23607",
+        "dataset": "official_test_5"
+      }
+    ]
+  }
+}

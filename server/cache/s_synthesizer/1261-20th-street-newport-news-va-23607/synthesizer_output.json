@@ -1,0 +1,15 @@
+{
+  "path": "A_solar_direct",
+  "footprint_source": "solar_whole",
+  "footprint_sqft": 6117.8,
+  "pitch_source": "solar_pitch",
+  "rise": 4.0,
+  "run": 12,
+  "pitch_multiplier": 1.0519,
+  "final_predicted_sqft": 6117.8,
+  "confidence": 0.92,
+  "manual_review_needed": false,
+  "reasoning": "Used Path A because Solar wholeRoofStats provides a direct slanted roof area with 6 roof segments and HIGH imagery quality, so no footprint \u00d7 pitch calculation is needed. The Solar weighted pitch of about 18 degrees is approximately 4:12 and agrees with the streetview/GPT shallow-pitch evidence, while MS/OSM/Solar ground areas are mutually consistent.",
+  "synthesizer_provider": "openai/gpt-5.5",
+  "raw": "{\"path\":\"A_solar_direct\",\"footprint_source\":\"solar_whole\",\"footprint_sqft\":6117.8,\"pitch_source\":\"solar_pitch\",\"rise\":4,\"run\":12,\"pitch_multiplier\":1.0519,\"final_predicted_sqft\":6117.8,\"confidence\":0.92,\"manual_review_needed\":false,\"reasoning\":\"Used Path A because Solar wholeRoofStats provides a direct slanted roof area with 6 roof segments and HIGH imagery quality, so no footprint \u00d7 pitch calculation is needed. The Solar weighted pitch of about 18 degrees is approximately 4:12 and agrees with the streetview/GPT shallow-pitch evidence, while MS/OSM/Solar ground areas are mutually consistent.\"}"
+}

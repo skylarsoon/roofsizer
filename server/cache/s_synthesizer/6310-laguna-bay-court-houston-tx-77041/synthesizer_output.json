@@ -1,0 +1,15 @@
+{
+  "path": "A_solar_direct",
+  "footprint_source": "solar_whole",
+  "footprint_sqft": 4186.2,
+  "pitch_source": "solar_pitch",
+  "rise": 8.0,
+  "run": 12,
+  "pitch_multiplier": 1.224,
+  "final_predicted_sqft": 4186.2,
+  "confidence": 0.9,
+  "manual_review_needed": false,
+  "reasoning": "Used Solar wholeRoofStats directly because it is available, has HIGH imagery quality, and includes 20 roof segments, meeting the preferred Path A criteria. The 4186.2 sqft value is already the slanted true roof area, so no footprint-to-pitch multiplication is needed.",
+  "synthesizer_provider": "openai/gpt-5.5",
+  "raw": "{\"path\":\"A_solar_direct\",\"footprint_source\":\"solar_whole\",\"footprint_sqft\":4186.2,\"pitch_source\":\"solar_pitch\",\"rise\":8,\"run\":12,\"pitch_multiplier\":1.224,\"final_predicted_sqft\":4186.2,\"confidence\":0.9,\"manual_review_needed\":false,\"reasoning\":\"Used Solar wholeRoofStats directly because it is available, has HIGH imagery quality, and includes 20 roof segments, meeting the preferred Path A criteria. The 4186.2 sqft value is already the slanted true roof area, so no footprint-to-pitch multiplication is needed.\"}"
+}

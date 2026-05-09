@@ -1,0 +1,86 @@
+{
+  "address": "1612 S Canton Ave, Springfield, MO 65802",
+  "geocode": {
+    "lat": 37.1860933,
+    "lng": -93.36959139999999
+  },
+  "candidates": {
+    "regional": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.65,
+      "source": "regional_default",
+      "label": "6:12 (regional/temperate_typical)",
+      "reasoning": null
+    },
+    "streetview": {
+      "rise": 5.0,
+      "run": 12.0,
+      "multiplier": 1.0833333333333333,
+      "confidence": 0.75,
+      "source": "streetview",
+      "label": "5:12 (streetview)",
+      "reasoning": "The visible ranch-style hip roof has a moderate low-to-typical slope around the 5:12 range."
+    },
+    "gpt_multi": {
+      "rise": 5.0,
+      "run": 12.0,
+      "multiplier": 1.0833333333333333,
+      "confidence": 0.66,
+      "source": "llm_multi",
+      "label": "5:12 (median of 3 shots)",
+      "reasoning": "The compound hipped roof has broad slope projections and only moderate shadows, indicating a typical-low residential pitch around 5:12.; A complex hipped suburban roof with broad planes and limited ridge shadow suggests a typical but slightly shallow pitch."
+    },
+    "gemini_multi": {
+      "rise": 6.0,
+      "run": 12.0,
+      "multiplier": 1.118033988749895,
+      "confidence": 0.5,
+      "source": "gemini_rejected_fallback",
+      "label": "6:12",
+      "reasoning": "all 3 Gemini shots failed"
+    }
+  },
+  "raw_context": {
+    "solar": {
+      "available": true,
+      "whole_roof_area_sqft": 2756.8,
+      "ground_area_sqft": 2363.0,
+      "weighted_pitch_deg": 30.89,
+      "weighted_pitch_multiplier": 1.1653,
+      "max_pitch_deg": 38.11,
+      "min_pitch_deg": 22.26,
+      "roof_segment_count": 10,
+      "roof_center_lat": 37.186093,
+      "roof_center_lng": -93.36959159999999,
+      "imagery_quality": "HIGH",
+      "error": null,
+      "roof_segment_centers": []
+    },
+    "streetview": {
+      "address": "1612 S Canton Ave, Springfield, MO 65802",
+      "lat": 37.1860933,
+      "lng": -93.36959139999999,
+      "streetview_available": true,
+      "pano_id": "Y4NofMPQEBZF9RY7i6Ir4w",
+      "pano_lat": 37.18608090603194,
+      "pano_lng": -93.36988640604356,
+      "distance_to_pano_m": 26.2,
+      "pano_date": "2012-04",
+      "copyright": "\u00a9 Google",
+      "status": "OK",
+      "error": null
+    },
+    "ms": {
+      "count": 31,
+      "closest_area_sqft": 2290.5,
+      "closest_distance_m": 0.0
+    },
+    "osm": {
+      "count": 0,
+      "closest_area_sqft": null,
+      "closest_distance_m": null
+    }
+  }
+}

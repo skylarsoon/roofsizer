@@ -1,0 +1,15 @@
+{
+  "path": "A_solar_direct",
+  "footprint_source": "solar_whole",
+  "footprint_sqft": 5566.1,
+  "pitch_source": "solar_pitch",
+  "rise": 6.0,
+  "run": 12,
+  "pitch_multiplier": 1.1227,
+  "final_predicted_sqft": 5566.1,
+  "confidence": 0.88,
+  "manual_review_needed": false,
+  "reasoning": "Solar wholeRoofStats is available, imagery quality is HIGH, and the roof has 18 detected segments, so Path A is appropriate and the Solar whole-roof area is used directly as true slanted roof area. The solar weighted pitch is about 27 degrees, roughly a 6:12 pitch, and the resulting 5566.1 sqft is consistent with the MS and solar ground footprints for a large residential hip roof.",
+  "synthesizer_provider": "openai/gpt-5.5",
+  "raw": "{\"path\":\"A_solar_direct\",\"footprint_source\":\"solar_whole\",\"footprint_sqft\":5566.1,\"pitch_source\":\"solar_pitch\",\"rise\":6,\"run\":12,\"pitch_multiplier\":1.1227,\"final_predicted_sqft\":5566.1,\"confidence\":0.88,\"manual_review_needed\":false,\"reasoning\":\"Solar wholeRoofStats is available, imagery quality is HIGH, and the roof has 18 detected segments, so Path A is appropriate and the Solar whole-roof area is used directly as true slanted roof area. The solar weighted pitch is about 27 degrees, roughly a 6:12 pitch, and the resulting 5566.1 sqft is consistent with the MS and solar ground footprints for a large residential hip roof.\"}"
+}

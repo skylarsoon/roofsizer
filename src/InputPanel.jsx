@@ -1,43 +1,32 @@
-import { MapPin, ScanLine, Upload } from 'lucide-react';
+import { MapPin, ScanLine } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-const pitchOptions = ['4:12', '6:12', '8:12', '10:12', '12:12'];
+const formatNumber = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
 
-export default function InputPanel({ results, loading, onAnalyze }) {
+export default function InputPanel({ results, loading, error, onAnalyze }) {
   const [address, setAddress] = useState('');
-  const [pitch, setPitch] = useState('6:12');
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef(null);
-  const fileInputRef = useRef(null);
 
+  // Google Places autocomplete (preserved from intern's shell)
   useEffect(() => {
     const googleApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
-    if (!googleApiKey || !inputRef.current) {
-      return undefined;
-    }
+    if (!googleApiKey || !inputRef.current) return undefined;
 
     let autocomplete;
     let listener;
     const scriptId = 'google-maps-places-sdk';
 
     const initializeAutocomplete = () => {
-      if (!window.google?.maps?.places || !inputRef.current) {
-        return;
-      }
-
+      if (!window.google?.maps?.places || !inputRef.current) return;
       autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
         types: ['address'],
         componentRestrictions: { country: 'us' },
       });
-
       listener = autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
-
-        if (place.formatted_address) {
-          setAddress(place.formatted_address);
-        }
+        if (place.formatted_address) setAddress(place.formatted_address);
       });
     };
 
@@ -45,7 +34,6 @@ export default function InputPanel({ results, loading, onAnalyze }) {
       initializeAutocomplete();
     } else {
       let script = document.getElementById(scriptId);
-
       if (!script) {
         script = document.createElement('script');
         script.id = scriptId;
@@ -56,7 +44,6 @@ export default function InputPanel({ results, loading, onAnalyze }) {
         )}&libraries=places`;
         document.head.appendChild(script);
       }
-
       script.addEventListener('load', initializeAutocomplete);
     }
 
@@ -66,25 +53,28 @@ export default function InputPanel({ results, loading, onAnalyze }) {
     };
   }, []);
 
+  // Math typewriter — uses REAL synthesizer numbers when results land.
   useEffect(() => {
-    if (!results) {
+    if (!results || !results.sqft) {
       setDisplayedText('');
       setIsTyping(false);
       return undefined;
     }
 
-    const fullText = `${results.pixelArea.toLocaleString()} px² × ${results.gsd} ft²/px
-× ${results.pitchMultiplier} pitch (${results.pitch})
-= ${results.sqft.toLocaleString()} sqft`;
-    let nextIndex = 0;
+    const fp = results.footprintSqft != null ? formatNumber(results.footprintSqft) : '—';
+    const mult = results.pitchMultiplier != null ? results.pitchMultiplier.toFixed(3) : '—';
+    const pitchLabel = results.pitch || '—';
+    const finalSqft = formatNumber(results.sqft);
 
+    const fullText = `${fp} ft² footprint × ${mult} (${pitchLabel} pitch)
+= ${finalSqft} sqft total`;
+    let nextIndex = 0;
     setDisplayedText('');
     setIsTyping(true);
 
     const intervalId = window.setInterval(() => {
       nextIndex += 1;
       setDisplayedText(fullText.slice(0, nextIndex));
-
       if (nextIndex >= fullText.length) {
         window.clearInterval(intervalId);
         setIsTyping(false);
@@ -96,17 +86,12 @@ export default function InputPanel({ results, loading, onAnalyze }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onAnalyze();
+    if (!address.trim()) return;
+    onAnalyze(address.trim());
   };
 
-  const handleUpload = (event) => {
-    const [file] = event.target.files;
-
-    if (file) {
-      onAnalyze();
-      event.target.value = '';
-    }
-  };
+  const confidencePct =
+    results && results.confidence != null ? Math.round(results.confidence * 100) : null;
 
   return (
     <aside className="input-panel">
@@ -121,6 +106,7 @@ export default function InputPanel({ results, loading, onAnalyze }) {
               onChange={(event) => setAddress(event.target.value)}
               placeholder="Enter property address…"
               type="text"
+              autoComplete="off"
             />
           </label>
         </section>
@@ -130,19 +116,13 @@ export default function InputPanel({ results, loading, onAnalyze }) {
         <section className="panel-section">
           <p className="section-label">Roof pitch</p>
           <div className="pitch-row">
-            <span>Estimated by AI</span>
-            <select value={pitch} onChange={(event) => setPitch(event.target.value)}>
-              {pitchOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            <span>Auto-detected by PitchPoint</span>
+            <span className="pitch-readout">{results?.pitch || '—'}</span>
           </div>
-          {results ? (
+          {confidencePct !== null ? (
             <p className="confidence-line">
               <span aria-hidden="true" />
-              High confidence — matched satellite shadow angle
+              Confidence {confidencePct}% · {results?.synthesizer?.pathLabel || 'synth pending'}
             </p>
           ) : null}
         </section>
@@ -156,46 +136,37 @@ export default function InputPanel({ results, loading, onAnalyze }) {
               {displayedText}
               {isTyping ? <span className="typewriter-cursor">|</span> : null}
             </div>
-          ) : null}
+          ) : (
+            <p className="math-placeholder">Footprint × pitch math appears here after analysis.</p>
+          )}
         </section>
+
+        {error ? (
+          <div className="panel-error" role="alert">
+            {error}
+          </div>
+        ) : null}
 
         <div className="panel-actions">
           <div className="step-dots" aria-label="Analysis progress">
             {[0, 1, 2, 3].map((step) => (
               <span
                 key={step}
-                className={step < 3 ? 'step-dot step-dot-active' : 'step-dot'}
+                className={
+                  loading
+                    ? `step-dot ${step < 2 ? 'step-dot-active' : ''}`
+                    : results
+                    ? 'step-dot step-dot-active'
+                    : 'step-dot'
+                }
                 aria-hidden="true"
               />
             ))}
           </div>
 
-          <button className="primary-button" type="submit" disabled={loading}>
+          <button className="primary-button" type="submit" disabled={loading || !address.trim()}>
             <ScanLine size={14} strokeWidth={2} aria-hidden="true" />
-            {loading ? 'Analyzing...' : 'Analyze roof'}
-          </button>
-
-          <div className="or-divider">
-            <span />
-            <em>or</em>
-            <span />
-          </div>
-
-          <input
-            ref={fileInputRef}
-            className="hidden-file-input"
-            type="file"
-            accept="image/*"
-            onChange={handleUpload}
-          />
-          <button
-            className="secondary-button"
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={loading}
-          >
-            <Upload size={14} strokeWidth={2} aria-hidden="true" />
-            Upload aerial photo
+            {loading ? 'Analyzing…' : 'Analyze roof'}
           </button>
         </div>
       </form>
