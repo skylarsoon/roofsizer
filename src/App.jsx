@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from './Navbar.jsx';
 import InputPanel from './InputPanel.jsx';
 import ResultsPanel from './ResultsPanel.jsx';
+import Toast from './Toast.jsx';
 
 const mockResults = {
   sqft: 2443,
@@ -25,16 +26,36 @@ const mockResults = {
 export default function App() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(null);
   const timerRef = useRef(null);
+  const toastTimerRef = useRef(null);
+  const startTimeRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timerRef.current);
+      window.clearTimeout(toastTimerRef.current);
+    };
+  }, []);
 
   const handleAnalyze = () => {
     window.clearTimeout(timerRef.current);
+    window.clearTimeout(toastTimerRef.current);
+    startTimeRef.current = Date.now();
     setResults(null);
     setLoading(true);
+    setToastVisible(false);
 
     timerRef.current = window.setTimeout(() => {
       setResults(mockResults);
       setLoading(false);
+      setElapsedTime(((Date.now() - startTimeRef.current) / 1000).toFixed(1));
+      setToastVisible(true);
+
+      toastTimerRef.current = window.setTimeout(() => {
+        setToastVisible(false);
+      }, 4000);
     }, 2500);
   };
 
@@ -45,6 +66,7 @@ export default function App() {
         <InputPanel results={results} loading={loading} onAnalyze={handleAnalyze} />
         <ResultsPanel results={results} loading={loading} />
       </main>
+      <Toast visible={toastVisible} elapsed={elapsedTime} />
     </div>
   );
 }

@@ -3,8 +3,6 @@ import ImagePreview from './ImagePreview.jsx';
 import LineItems from './LineItems.jsx';
 import MetricCard from './MetricCard.jsx';
 
-const formatNumber = (value) => new Intl.NumberFormat('en-US').format(value);
-
 export default function ResultsPanel({ results, loading }) {
   return (
     <section className="results-panel">
@@ -14,17 +12,20 @@ export default function ResultsPanel({ results, loading }) {
         <div className="results-content results-content-visible">
           <div className="metric-row">
             <MetricCard
-              value={formatNumber(results.sqft)}
+              value={results.sqft}
+              format="number"
               label="Total sqft"
               sub="Roof area"
             />
             <MetricCard
-              value={results.squares.toFixed(1)}
+              value={results.squares}
+              format="decimal"
               label="Squares"
               sub={`+15% waste = ${results.squaresWithWaste.toFixed(1)}`}
             />
             <MetricCard
               value={results.pitch}
+              format="number"
               label="Pitch"
               sub={`×${results.pitchMultiplier.toFixed(3)} multiplier`}
               accent

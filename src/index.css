@@ -264,6 +264,15 @@ a {
   padding: 10px 14px;
 }
 
+/* Typewriter */
+.math-pill {
+  white-space: pre-wrap;
+}
+
+.typewriter-cursor {
+  animation: blink 0.5s steps(1, end) infinite;
+}
+
 .panel-actions {
   display: flex;
   flex-direction: column;
@@ -620,6 +629,34 @@ a {
   padding: 8px 14px;
 }
 
+/* Toast */
+.toast {
+  align-items: center;
+  background: var(--color-ink);
+  border-radius: 10px;
+  bottom: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  color: var(--color-white);
+  display: flex;
+  font-size: 13px;
+  gap: 8px;
+  opacity: 0;
+  padding: 11px 16px;
+  pointer-events: none;
+  position: fixed;
+  right: 28px;
+  transform: translateY(16px);
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+  z-index: 1000;
+}
+
+.toast-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes dotPulse {
   0%,
   100% {
@@ -638,6 +675,17 @@ a {
 
   100% {
     background-position: -110% 0;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
   }
 }
 
