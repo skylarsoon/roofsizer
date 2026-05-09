@@ -49,3 +49,7 @@ server/outputs/
 # Python build artifacts
 *.egg-info/
 .pytest_cache/
+
+# Local-only working files (not for the public repo)
+CLAUDE.md
+project-details/

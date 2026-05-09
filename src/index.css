@@ -369,7 +369,8 @@ a {
   background: var(--color-preview);
   border: var(--border-fine);
   border-radius: 12px;
-  min-height: 300px;
+  min-height: 240px;
+  max-height: 380px;
   overflow: hidden;
   position: relative;
 }
@@ -582,51 +583,88 @@ a {
   font-weight: 500;
 }
 
-.estimate-bar {
-  align-items: center;
-  background: var(--color-ink);
+.quotation-card {
+  background: var(--color-white);
+  border: var(--border-fine);
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 18px;
+  padding: 16px;
 }
 
-.estimate-label,
-.estimate-value,
-.estimate-sub {
+.quotation-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+
+.quotation-header h2 {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
   margin: 0;
 }
 
-.estimate-label {
-  color: var(--color-muted);
-  font-size: 12px;
-  line-height: 1.2;
-}
-
-.estimate-value {
-  color: var(--color-white);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  line-height: 1.3;
-}
-
-.estimate-sub {
+.quotation-header span {
+  background: var(--color-surface-strong);
+  border-radius: 999px;
   color: var(--color-muted-strong);
   font-size: 11px;
+  font-weight: 600;
+  padding: 5px 9px;
 }
 
-.estimate-bar button {
+.quotation-list {
+  margin-bottom: 4px;
+}
+
+.quotation-row {
   align-items: center;
-  background: var(--color-white);
-  border: 0;
-  border-radius: 7px;
+  border-bottom: 0.5px solid var(--color-surface-strong);
+  display: grid;
+  font-size: 13px;
+  gap: 8px;
+  grid-template-columns: 1fr auto auto;
+  padding: 7px 0;
+}
+
+.quotation-name {
+  color: var(--color-muted-strong);
+}
+
+.quotation-rate {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: right;
+}
+
+.quotation-amount {
   color: var(--color-ink);
-  display: inline-flex;
-  font-size: 12px;
   font-weight: 500;
-  gap: 7px;
-  padding: 8px 14px;
+  min-width: 130px;
+  text-align: right;
+}
+
+.quotation-total {
+  align-items: center;
+  background: var(--color-ink);
+  border-radius: 8px;
+  color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 12px 14px;
+}
+
+.quotation-total span {
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.quotation-total strong {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
 /* Toast */
