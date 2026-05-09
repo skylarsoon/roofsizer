@@ -7,6 +7,7 @@ from fastapi import UploadFile, HTTPException
 
 from core.sam_predictor import get_predictor, get_inference_lock
 from models.upload_models import UploadResponse
+from services.geometry import extract_geometry
 
 
 def _decode_image(contents: bytes) -> tuple[np.ndarray, int, int, int]:
@@ -57,10 +58,13 @@ async def handle_upload(file: UploadFile) -> UploadResponse:
     best_mask: np.ndarray = masks[best_idx]        # (H, W) bool
     best_iou: float = float(iou_scores[best_idx])
 
+    geometry = extract_geometry(best_mask)
+
     return UploadResponse(
         status="ok",
         filename=file.filename or "unknown",
         image_shape=[h, w, c],
         mask_b64=_mask_to_b64_png(best_mask),
         iou_score=best_iou,
+        geometry=geometry,
     )
